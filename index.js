@@ -28,6 +28,14 @@ async function run() {
         const result =await propertyCollection.find().toArray()
         res.send(result)
     })
+    app.post('/allProperties',async(req,res)=>{
+        const data =req.body
+        const result =await propertyCollection.insertOne(data)
+        res.send({
+      success:true,
+      result
+        } )
+    })
 
 
 
