@@ -28,6 +28,14 @@ async function run() {
         const result =await propertyCollection.find().toArray()
         res.send(result)
     })
+
+    app.get('/latest-properties',async(req,res)=>{
+        const cursor = propertyCollection.find().sort({postedDate: -1}).limit(6)
+        const result = await cursor.toArray()
+        res.send(result)
+    })
+
+
     app.post('/allProperties',async(req,res)=>{
         const data =req.body
         const result =await propertyCollection.insertOne(data)
