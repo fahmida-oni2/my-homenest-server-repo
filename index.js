@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require("dotenv").config()
 const app = express()
 const port = 3000
@@ -26,6 +26,13 @@ async function run() {
 
     app.get('/allProperties',async(req,res)=>{
         const result =await propertyCollection.find().toArray()
+        res.send(result)
+    })
+
+    app.get('/properties/:id',async(req,res)=>{
+      const {id} =req.params
+        const result = await propertyCollection.findOne({_id: new ObjectId(id)})
+      
         res.send(result)
     })
 
