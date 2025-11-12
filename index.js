@@ -34,6 +34,12 @@ async function run() {
         const result = await cursor.toArray()
         res.send(result)
     })
+     app.get('/my-properties',async(req,res)=>{
+      const email = req.query.email
+        const cursor = propertyCollection.find({postedByEmail: email})
+        const result = await cursor.toArray()
+        res.send(result)
+    })
 
 
     app.post('/allProperties',async(req,res)=>{
