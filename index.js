@@ -23,12 +23,12 @@ async function run() {
     const db = client.db("homenest-db");
     const propertyCollection = db.collection("allproperties");
 
-    app.get("/allProperties", async (req, res) => {
+    app.get("/all-properties", async (req, res) => {
       const result = await propertyCollection.find().toArray();
       res.send(result);
     });
 
-    app.get("/allProperties/:id", async (req, res) => {
+    app.get("/all-properties/:id", async (req, res) => {
       const { id } = req.params;
       const result = await propertyCollection.findOne({
         _id: new ObjectId(id),
@@ -37,7 +37,7 @@ async function run() {
       res.send(result);
     });
 
-    app.put("/allProperties/:id", async (req, res) => {
+    app.put("/all-properties/:id", async (req, res) => {
       const { id } = req.params;
       const data = req.body;
       const propertyId = new ObjectId(id);
@@ -52,21 +52,12 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/allProperties/:id", async (req, res) => {
+    app.delete("/all-properties/:id", async (req, res) => {
       const { id } = req.params;
       const propertyId = new ObjectId(id);
 
       const result = await propertyCollection.deleteOne({
         _id: propertyId,
-      });
-
-      res.send(result);
-    });
-
-    app.delete("/allProperties/:id", async (req, res) => {
-      const { id } = req.params;
-      const result = await propertyCollection.deleteOne({
-        _id: new ObjectId(id),
       });
 
       res.send(result);
@@ -87,7 +78,7 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/allProperties", async (req, res) => {
+    app.post("/all-properties", async (req, res) => {
       const data = req.body;
       const result = await propertyCollection.insertOne(data);
       res.send({
