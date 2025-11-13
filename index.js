@@ -19,24 +19,40 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
-    const db = client.db("homenest-db");
-    const propertyCollection = db.collection("allproperties");
+    // await client.connect();
+    const db = client.db("home-db");
+    const propertyCollection = db.collection("all-properties");
 
     app.get("/all-properties", async (req, res) => {
       const result = await propertyCollection.find().toArray();
       res.send(result);
     });
 
-    app.get("/all-properties/:id", async (req, res) => {
-      const { id } = req.params;
-      const result = await propertyCollection.findOne({
-        _id: new ObjectId(id),
-      });
 
-      res.send(result);
+//     app.get("/all-properties/:id", async (req, res) => {
+//     const { id } = req.params;
+
+//     const objectId = new ObjectId(id);
+
+//       const result = await propertyCollection.findOne({ _id: objectId });
+
+//       res.send({
+//         success: true,
+//         result,
+//       });
+// });
+
+// The server code that ran (after correction)
+app.get("/all-properties/:id", async (req, res) => {
+    const { id } = req.params;
+    const objectId = ObjectId.isValid(id) ? new ObjectId(id): id
+    const result = await propertyCollection.findOne({ _id: objectId }); 
+
+    res.send({
+      success: true, 
+      result,         
     });
-
+});
     app.put("/all-properties/:id", async (req, res) => {
       const { id } = req.params;
       const data = req.body;
@@ -87,7 +103,7 @@ async function run() {
       });
     });
 
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
