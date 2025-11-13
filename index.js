@@ -29,23 +29,9 @@ async function run() {
     });
 
 
-//     app.get("/all-properties/:id", async (req, res) => {
-//     const { id } = req.params;
-
-//     const objectId = new ObjectId(id);
-
-//       const result = await propertyCollection.findOne({ _id: objectId });
-
-//       res.send({
-//         success: true,
-//         result,
-//       });
-// });
-
-// The server code that ran (after correction)
 app.get("/all-properties/:id", async (req, res) => {
     const { id } = req.params;
-    const objectId = ObjectId.isValid(id) ? new ObjectId(id): id
+    const objectId =  new ObjectId(id)
     const result = await propertyCollection.findOne({ _id: objectId }); 
 
     res.send({
