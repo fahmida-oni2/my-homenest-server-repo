@@ -9,7 +9,6 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.pwy4qnn.mongodb.net/?appName=Cluster0`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -41,12 +40,34 @@ async function run() {
     app.put("/allProperties/:id", async (req, res) => {
       const { id } = req.params;
       const data = req.body;
-      const queryId = new ObjectId(id);
-      const filter = { _id: queryId };
+      const propertyId = new ObjectId(id);
+      delete data._id;
+
+      const filter = { _id: propertyId };
       const update = {
         $set: data,
       };
       const result = await propertyCollection.updateOne(filter, update);
+
+      res.send(result);
+    });
+
+    app.delete("/allProperties/:id", async (req, res) => {
+      const { id } = req.params;
+      const propertyId = new ObjectId(id);
+
+      const result = await propertyCollection.deleteOne({
+        _id: propertyId,
+      });
+
+      res.send(result);
+    });
+
+    app.delete("/allProperties/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await propertyCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
 
       res.send(result);
     });
