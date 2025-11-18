@@ -5,7 +5,7 @@ Server live link :[real-estate](https://real-estate-api-server.vercel.app/)
 
 ## Technologies Used
 - **Express.js**
--**dot env**
+- **dot env**
 - **MongoDB**
 - **Cors** 
 
