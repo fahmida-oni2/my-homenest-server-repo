@@ -1,7 +1,7 @@
 # HomeNest-Server
 This is the server side of HomeNest wesbsite which helps to handle all CRUD opearations of this website.
 
-Server live link :[real-estate](https://real-estate-api-server.vercel.app/)
+Server live link :https://my-homenest-app.vercel.app/
 
 ## Technologies Used
 - **Express.js**
